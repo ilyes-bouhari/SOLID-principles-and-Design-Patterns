@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JFrame;
 
 
-public class ViewInscription {
+public class ViewInscription extends IView<Etudiant> {
     
 	private JFrame frame;
     private JPanel contentPane;
@@ -141,5 +141,17 @@ public class ViewInscription {
     
     public JButton getBtnSubmit() {
 		return btnSubmit;
+	}
+
+	@Override
+	Etudiant fillObject() {
+		return new Etudiant(
+			this.Get_Mat(),
+			this.Get_Nom(),
+			this.Get_Prenom(),
+			this.Get_email(),
+			this.Get_pwd(),
+			this.Get_id_univ()
+		);
 	}
 }

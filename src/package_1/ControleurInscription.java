@@ -4,9 +4,9 @@ import java.sql.SQLException;
 
 public class ControleurInscription {
 	
-	private ViewInscription _view;
+	private IView<Etudiant> _view;
 	
-	public ControleurInscription(ViewInscription view) {
+	public ControleurInscription(IView<Etudiant> view) {
 		this._view = view;
 	}
 	
@@ -28,14 +28,16 @@ public class ControleurInscription {
 		
 		// 2. call student service inscription method
 		try {
-					
+			
+			Etudiant student = _view.fillObject();
+			
 			studentService.inscription(
-				_view.Get_Mat(), 
-				_view.Get_Nom(), 
-				_view.Get_Prenom(), 
-				_view.Get_email(), 
-				_view.Get_pwd(), 
-				_view.Get_id_univ(),
+				student.getId(), 
+				student.getNom(), 
+				student.getPrenom(), 
+				student.getEmail(), 
+				student.getPwd(), 
+				student.getId_universite(),
 				new EtudiantRepository(new MySQLConnection()),
 				new UniversiteRepository(new MySQLConnection())
 			);
