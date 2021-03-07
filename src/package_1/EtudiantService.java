@@ -15,7 +15,6 @@ public class EtudiantService {
 	boolean inscription (int matricule, String nom, String prenom, String email,String pwd, int id_universite, IRepository<Etudiant> studentRepository, UniversiteRepository universiteRepository) throws SQLException {
 		
 	    Etudiant student = new Etudiant(matricule, nom, prenom, email, pwd, id_universite);
-	    Universite university = universiteRepository.GetById(id_universite);
 	    	    
 	    message = "LOG : Debut de l'operation d'ajout de l'etudiant avec matricule " + matricule;
 	    _journal.addJournal(new MetaJournal(new ConsoleJournal()));

@@ -75,20 +75,12 @@ public class UniversiteRepository implements IRepository<Universite> {
 		
 		TypePackage university_pack = this.GetById(student.getId_universite()).getPack();
 		
-		switch (university_pack) {
-			case Standard: {
-				student.setNbLivreMensuel_Autorise(10);
-				break;
-			}
-			
-			case Premium: {
-				student.setNbLivreMensuel_Autorise(10 * 2);
-				break;
-			}
-			
-			default:
-				break;
-		}
+		@SuppressWarnings("unchecked")
+		AbstractFactory<Forfait> forfaitFactory = (AbstractFactory<Forfait>) FactoryProvider.getFactory("Forfait");
+		
+		Forfait forfait = forfaitFactory.create(university_pack.toString());
+		
+		student.setNbLivreMensuel_Autorise(forfait.getNbrLivreMensuelAutorise());
 		
 		return student;
 	}
@@ -96,21 +88,14 @@ public class UniversiteRepository implements IRepository<Universite> {
 	public Etudiant increase_NbLivreMensuel_Autorise(Etudiant student) throws SQLException {
 		
 		TypePackage university_pack = this.GetById(student.getId_universite()).getPack();
+
+		@SuppressWarnings("unchecked")
+		AbstractFactory<Forfait> forfaitFactory = (AbstractFactory<Forfait>) FactoryProvider.getFactory("Forfait");
 		
-		switch (university_pack) {
-			case Standard: {
-				student.increase_NbLivreMensuel_Autorise(5);;
-				break;
-			}
-		
-			case Premium: {
-				student.increase_NbLivreMensuel_Autorise(10);
-				break;
-			}
-		
-			default:
-				break;
-		}
+		Forfait forfait = forfaitFactory.create(university_pack.toString());
+
+		if (forfait instanceof AugmentableForfait)
+			forfait.increaseNbrLivreMensuelAutorise(student);
 		
 		return student;
 	}
