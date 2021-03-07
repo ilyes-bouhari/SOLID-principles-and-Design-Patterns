@@ -3,6 +3,11 @@ package package_1;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import database.MySQLConnection;
+import journal.*;
+import validator.CompositeValidator;
+import validator.IValidator;
+
 public class EtudiantService {
 	
 	private CompositeJournal _journal;
@@ -21,7 +26,7 @@ public class EtudiantService {
 	    _journal.addJournal(new MetaJournal(new FileJournal()));
 	    _journal.outPut_Msg(message);
 	    
-	    CompositeValidator validator = new CompositeValidator();
+	    CompositeValidator<Model> validator = new CompositeValidator<Model>();
 	    validator.addValidator(new EtudiantEmailIsValidValidator());
 	    validator.addValidator(new EtudiantMatriculeNonExistenceValidator());
 	    validator.addValidator(new EtudiantEmailNonExistenceValidator());

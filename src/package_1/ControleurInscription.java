@@ -2,6 +2,8 @@ package package_1;
 
 import java.sql.SQLException;
 
+import database.MySQLConnection;
+
 public class ControleurInscription {
 	
 	private IView<Etudiant> _view;

@@ -5,6 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import database.IDBConnection;
+import journal.*;
+
 public class EtudiantRepository implements IRepository<Etudiant> {
 	
 	private IDBConnection dbConnection;

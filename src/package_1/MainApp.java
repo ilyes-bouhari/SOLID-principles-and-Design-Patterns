@@ -1,4 +1,6 @@
-	package package_1;
+package package_1;
+
+import database.MySQLConnection;
 
 public class MainApp {
 

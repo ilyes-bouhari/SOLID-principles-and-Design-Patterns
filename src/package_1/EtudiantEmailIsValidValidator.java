@@ -1,5 +1,7 @@
 package package_1;
 
+import validator.IValidator;
+
 public class EtudiantEmailIsValidValidator implements IValidator<Etudiant> {
 
 	@Override

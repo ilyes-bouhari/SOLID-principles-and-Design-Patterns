@@ -1,10 +1,13 @@
 package package_1;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import database.IDBConnection;
+import forfait.*;
+import journal.*;
 
 public class UniversiteRepository implements IRepository<Universite> {
 	
@@ -76,9 +79,9 @@ public class UniversiteRepository implements IRepository<Universite> {
 		TypePackage university_pack = this.GetById(student.getId_universite()).getPack();
 		
 		@SuppressWarnings("unchecked")
-		AbstractFactory<Forfait> forfaitFactory = (AbstractFactory<Forfait>) FactoryProvider.getFactory("Forfait");
+		AbstractFactory<Forfait<Etudiant>> forfaitFactory = (AbstractFactory<Forfait<Etudiant>>) FactoryProvider.getFactory("Forfait");
 		
-		Forfait forfait = forfaitFactory.create(university_pack.toString());
+		Forfait<Etudiant> forfait = forfaitFactory.create(university_pack.toString());
 		
 		student.setNbLivreMensuel_Autorise(forfait.getNbrLivreMensuelAutorise());
 		
@@ -90,9 +93,9 @@ public class UniversiteRepository implements IRepository<Universite> {
 		TypePackage university_pack = this.GetById(student.getId_universite()).getPack();
 
 		@SuppressWarnings("unchecked")
-		AbstractFactory<Forfait> forfaitFactory = (AbstractFactory<Forfait>) FactoryProvider.getFactory("Forfait");
+		AbstractFactory<Forfait<Etudiant>> forfaitFactory = (AbstractFactory<Forfait<Etudiant>>) FactoryProvider.getFactory("Forfait");
 		
-		Forfait forfait = forfaitFactory.create(university_pack.toString());
+		Forfait<Etudiant> forfait = forfaitFactory.create(university_pack.toString());
 
 		if (forfait instanceof AugmentableForfait)
 			forfait.increaseNbrLivreMensuelAutorise(student);

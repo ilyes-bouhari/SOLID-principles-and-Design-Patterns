@@ -1,5 +1,7 @@
 package package_1;
 
+import forfait.*;
+
 public class ForfaitFactory implements AbstractFactory<Forfait> {
 
 	@Override

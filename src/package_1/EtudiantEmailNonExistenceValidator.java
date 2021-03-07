@@ -2,6 +2,9 @@ package package_1;
 
 import java.sql.SQLException;
 
+import database.MySQLConnection;
+import validator.IValidator;
+
 public class EtudiantEmailNonExistenceValidator implements IValidator<Etudiant> {
 
 	private EtudiantRepository _studentRepository;
