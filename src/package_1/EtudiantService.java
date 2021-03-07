@@ -17,7 +17,7 @@ public class EtudiantService {
 		_journal = new CompositeJournal();
 	}
 	
-	boolean inscription (int matricule, String nom, String prenom, String email,String pwd, int id_universite, IRepository<Etudiant> studentRepository, UniversiteRepository universiteRepository) throws SQLException {
+	public boolean inscription (int matricule, String nom, String prenom, String email,String pwd, int id_universite, IRepository<Etudiant> studentRepository, UniversiteRepository universiteRepository) throws SQLException {
 		
 	    Etudiant student = new Etudiant(matricule, nom, prenom, email, pwd, id_universite);
 	    	    
