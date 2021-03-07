@@ -1,6 +1,6 @@
 package package_1;
 
-public class Universite {
+public class Universite extends Model {
 
 	private int i_univ;
 	private String nom;
@@ -13,7 +13,8 @@ public class Universite {
 		this.pack = pack;
 	}
 	
-	public int getI_univ() {
+	@Override
+	public int getId() {
 		return i_univ;
 	}
 	

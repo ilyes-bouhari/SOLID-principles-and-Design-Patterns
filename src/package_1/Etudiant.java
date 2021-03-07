@@ -1,6 +1,6 @@
 package package_1;
 
-public class Etudiant {
+public class Etudiant extends Model {
 
 	private int matricule;
     private String nom;
@@ -20,10 +20,11 @@ public class Etudiant {
 		this.id_universite = id_universite;
 	}
 
-	public int getMatricule() {
+	@Override
+	public int getId() {
 		return matricule;
-	}
-
+	}	
+	
 	public void setMatricule(int matricule) {
 		this.matricule = matricule;
 	}

@@ -5,10 +5,8 @@ import java.util.ArrayList;
 
 public class EtudiantService {
 	
-	boolean inscription (int matricule, String nom, String prenom, String email,String pwd, int id_universite) throws SQLException {
+	boolean inscription (int matricule, String nom, String prenom, String email,String pwd, int id_universite, IRepository<Etudiant> studentRepository, IRepository<Universite> universiteRepository) throws SQLException {
 		
-		EtudiantRepository studentRepository = new EtudiantRepository();
-	    UniversiteRepository universiteRepository = new UniversiteRepository();
 	    Etudiant student = new Etudiant(matricule, nom, prenom, email, pwd, id_universite);
 	    Universite university = universiteRepository.GetById(id_universite);
 	    

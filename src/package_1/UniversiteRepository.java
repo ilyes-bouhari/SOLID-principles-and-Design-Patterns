@@ -6,11 +6,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class UniversiteRepository {
+public class UniversiteRepository implements IRepository<Universite> {
 	
-	Universite GetById(int universityId) throws SQLException {
+	IDBConnection dbConnection;
+	
+	public UniversiteRepository(IDBConnection dbConnection) {
+		this.dbConnection = dbConnection;
+	}
+	
+	@Override
+	public Universite GetById(int universityId) throws SQLException {
 		
-		DBConnection dbConnection = DBConnection.getInstance();
 		Connection connect = dbConnection.getConnection();
 		
 		Statement statement = connect.createStatement();
@@ -31,5 +37,22 @@ public class UniversiteRepository {
 		connect.close();
 		
 		return university;		
+	}
+
+	@Override
+	public boolean Exists(String field) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean Exists(int field) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void add(Universite model) throws SQLException {
+		// TODO Auto-generated method stub	
 	}
 }

@@ -5,31 +5,36 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class EtudiantRepository {
+public class EtudiantRepository implements IRepository<Etudiant> {
 	
-	void add(Etudiant E) throws SQLException {
+	private IDBConnection dbConnection;
+	
+	public EtudiantRepository(IDBConnection dbConnection) {
+		this.dbConnection = dbConnection;
+	}
+	
+	@Override
+	public void add(Etudiant E) throws SQLException {
 
-		DBConnection dbConnection = DBConnection.getInstance();
 		Connection connect = dbConnection.getConnection();
 		
 		Statement statement = connect.createStatement();
-		String sql = "INSERT into etudiant values (" + E.getMatricule() + ",'" + E.getNom() + "','" + E.getPrenom() + "','" + E.getEmail() + "','" + E.getPwd() + "'," +E.getNbLivreMensuel_Autorise() + "," +E.getNbLivreEmprunte() + "," +E.getId_universite()+")";
+		String sql = "INSERT into etudiant values (" + E.getId() + ",'" + E.getNom() + "','" + E.getPrenom() + "','" + E.getEmail() + "','" + E.getPwd() + "'," +E.getNbLivreMensuel_Autorise() + "," +E.getNbLivreEmprunte() + "," +E.getId_universite()+")";
 		
 		int result = statement.executeUpdate(sql);
 		
 		if (result == 1){
-			System.out.println("LOG : Ajout dans la BD reussi de l'etudiant  du Matricule" + E.getMatricule());
+			System.out.println("LOG : Ajout dans la BD reussi de l'etudiant  du Matricule" + E.getId());
 		} else if (result == 0) {
-			System.out.println("LOG : Echec de l'ajout dans la BD de l'etudiant  du Matricule" + E.getMatricule());
+			System.out.println("LOG : Echec de l'ajout dans la BD de l'etudiant  du Matricule" + E.getId());
 		}
 		
 		connect.close();
 	 }
 
-
-	boolean Exists(String email) throws SQLException {
+	@Override
+	public boolean Exists(String email) throws SQLException {
 		
-		DBConnection dbConnection = DBConnection.getInstance();
 		Connection connect = dbConnection.getConnection();
 		
 		Statement statement = connect.createStatement();
@@ -50,9 +55,9 @@ public class EtudiantRepository {
 		return false;
 	}
 	
-	boolean Exists(int mat) throws SQLException	{
+	@Override
+	public boolean Exists(int mat) throws SQLException	{
 		
-		DBConnection dbConnection = DBConnection.getInstance();
 		Connection connect = dbConnection.getConnection();
 		
 		Statement statement = connect.createStatement();
@@ -74,4 +79,9 @@ public class EtudiantRepository {
 		return false;
 	}
 
+	@Override
+	public Etudiant GetById(int id) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
