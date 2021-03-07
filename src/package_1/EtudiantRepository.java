@@ -28,14 +28,14 @@ public class EtudiantRepository implements IRepository<Etudiant> {
 		
 		if (result == 1){
 			
-			message = "LOG : Ajout dans la BD reussi de l'etudiant du Matricule" + E.getId();
+			message = "LOG : Ajout dans la BD reussi de l'etudiant du Matricule " + E.getId();
 		    _journal.addJournal(new MetaJournal(new ConsoleJournal()));
 		    _journal.addJournal(new MetaJournal(new FileJournal()));
 		    _journal.outPut_Msg(message);
 			
 		} else if (result == 0) {
 			
-			message = "LOG : Echec de l'ajout dans la BD de l'etudiant  du Matricule" + E.getId();
+			message = "LOG : Echec de l'ajout dans la BD de l'etudiant du Matricule " + E.getId();
 		    _journal.addJournal(new MetaJournal(new ConsoleJournal()));
 		    _journal.addJournal(new MetaJournal(new FileJournal()));
 		    _journal.outPut_Msg(message);
@@ -92,7 +92,7 @@ public class EtudiantRepository implements IRepository<Etudiant> {
 		
 		if (result.next()){
 			
-			message = "LOG DB : email existe dans la BD" + email;
+			message = "LOG DB : email existe dans la BD " + email;
 		    _journal.addJournal(new MetaJournal(new ConsoleJournal()));
 		    _journal.addJournal(new MetaJournal(new FileJournal()));
 		    _journal.outPut_Msg(message);
