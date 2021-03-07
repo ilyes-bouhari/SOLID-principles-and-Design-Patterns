@@ -65,6 +65,12 @@ public class UniversiteRepository implements IRepository<Universite> {
 		// TODO Auto-generated method stub	
 	}
 	
+	@Override
+	public void update(Universite model) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	public Etudiant setNbLivreMensuel_Autorise(Etudiant student) throws SQLException {
 		
 		TypePackage university_pack = this.GetById(student.getId_universite()).getPack();
@@ -80,6 +86,28 @@ public class UniversiteRepository implements IRepository<Universite> {
 				break;
 			}
 			
+			default:
+				break;
+		}
+		
+		return student;
+	}
+	
+	public Etudiant increase_NbLivreMensuel_Autorise(Etudiant student) throws SQLException {
+		
+		TypePackage university_pack = this.GetById(student.getId_universite()).getPack();
+		
+		switch (university_pack) {
+			case Standard: {
+				student.increase_NbLivreMensuel_Autorise(5);;
+				break;
+			}
+		
+			case Premium: {
+				student.increase_NbLivreMensuel_Autorise(10);
+				break;
+			}
+		
 			default:
 				break;
 		}

@@ -19,6 +19,10 @@ public class Etudiant extends Model {
 		this.pwd = pwd;
 		this.id_universite = id_universite;
 	}
+	
+	public Etudiant(int matricule) {
+		this.matricule = matricule;
+	}
 
 	@Override
 	public int getId() {
@@ -83,5 +87,9 @@ public class Etudiant extends Model {
 
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
+	}
+	
+	public void increase_NbLivreMensuel_Autorise(int increaseby) {
+		this.nbLivreMensuel_Autorise += increaseby;
 	}
 }

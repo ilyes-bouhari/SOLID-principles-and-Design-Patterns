@@ -12,6 +12,8 @@ public class MainApp {
 				new EtudiantRepository(new MySQLConnection()), // student repository with database connection
 				new UniversiteRepository(new MySQLConnection()) // university repository with database connection
 			);
+			
+			studentService.increase_NbLivreMensuel_Autorise(1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

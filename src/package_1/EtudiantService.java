@@ -41,6 +41,22 @@ public class EtudiantService {
 		return true;	
 	}
 	
+	public boolean increase_NbLivreMensuel_Autorise(int matricule) throws SQLException {
+		
+		IValidator<Etudiant> validator = new EtudiantMatriculeExistenceValidator();
+		if (! validator.validate(new Etudiant(matricule))) return false;
+
+		EtudiantRepository studentRepository = new EtudiantRepository(new MySQLConnection());
+		Etudiant student = studentRepository.getByMatricule(matricule);
+				
+	    UniversiteRepository universiteRepository = new UniversiteRepository(new MySQLConnection());
+	    student = universiteRepository.increase_NbLivreMensuel_Autorise(student);
+		
+	    studentRepository.update(student);
+	    
+		return true;
+	}
+	
 	public ArrayList<Etudiant> GetEtudiantParUniversitye() {
 	    //...
 		return new ArrayList<>(4);

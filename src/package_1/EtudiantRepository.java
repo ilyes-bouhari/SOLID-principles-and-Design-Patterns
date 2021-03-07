@@ -42,7 +42,43 @@ public class EtudiantRepository implements IRepository<Etudiant> {
 		}
 		
 		connect.close();
-	 }
+	}
+	
+	@Override
+	public void update(Etudiant student) throws SQLException {
+
+		Connection connect = dbConnection.getConnection();
+
+		Statement statement = connect.createStatement();
+		String sql 	= "UPDATE etudiant SET matricule = " + student.getId() 
+					+ ", nom = '" + student.getNom() 
+					+ "', prenom = '" + student.getPrenom()
+					+ "', email = '" + student.getEmail()
+					+ "', nbLivreMensuel_Autorise = " + student.getNbLivreMensuel_Autorise()
+					+ ", nbLivreEmprunte = " + student.getNbLivreEmprunte()
+					+ ", id_universite = " + student.getId_universite()
+					+ " WHERE matricule = " + student.getId();
+		
+		int result = statement.executeUpdate(sql);
+
+		if (result == 1){
+			
+			message = "LOG : Mise a jour dans la BD reussi de l'etudiant du Matricule " + student.getId();
+		    _journal.addJournal(new MetaJournal(new ConsoleJournal()));
+		    _journal.addJournal(new MetaJournal(new FileJournal()));
+		    _journal.outPut_Msg(message);
+
+		} else if (result == 0){
+			
+			message = "LOG : Echec de la mise a jour dans la BD de l'etudiant du Matricule " + student.getId();
+		    _journal.addJournal(new MetaJournal(new ConsoleJournal()));
+		    _journal.addJournal(new MetaJournal(new FileJournal()));
+		    _journal.outPut_Msg(message);
+		    
+		}
+		
+		connect.close();
+	}
 
 	@Override
 	public boolean Exists(String email) throws SQLException {
@@ -111,5 +147,24 @@ public class EtudiantRepository implements IRepository<Etudiant> {
 	public Etudiant GetById(int id) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public Etudiant getByMatricule(int matricule) throws SQLException {
+		
+		Connection connect = dbConnection.getConnection();
+		
+		Statement statement = connect.createStatement();
+		
+		String sql = "select * from etudiant where matricule='"+ matricule +"'";
+		
+		ResultSet result = statement.executeQuery(sql);
+		
+		result.next();
+				
+		Etudiant student = new Etudiant(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getInt(8));
+		student.setNbLivreEmprunte(result.getInt(7));
+		student.setNbLivreMensuel_Autorise(result.getInt(6));
+		
+		return student;
 	}
 }
