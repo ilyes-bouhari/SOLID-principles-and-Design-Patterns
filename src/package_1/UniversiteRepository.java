@@ -9,9 +9,12 @@ import java.sql.Statement;
 public class UniversiteRepository implements IRepository<Universite> {
 	
 	IDBConnection dbConnection;
+	private CompositeJournal _journal;
+	private String message;
 	
 	public UniversiteRepository(IDBConnection dbConnection) {
 		this.dbConnection = dbConnection;
+		this._journal = new CompositeJournal();
 	}
 	
 	@Override
@@ -20,8 +23,11 @@ public class UniversiteRepository implements IRepository<Universite> {
 		Connection connect = dbConnection.getConnection();
 		
 		Statement statement = connect.createStatement();
-		
-		System.out.println("LOG DB : debut recherche de id universite dans la base de donnee");
+				
+		message = "LOG DB : debut recherche de id universite dans la base de donnee";
+	    _journal.addJournal(new MetaJournal(new ConsoleJournal()));
+	    _journal.addJournal(new MetaJournal(new FileJournal()));
+	    _journal.outPut_Msg(message);
 		
 		String sql = "select * from universite where id_universite="+ universityId;
 
@@ -32,8 +38,11 @@ public class UniversiteRepository implements IRepository<Universite> {
 		TypePackage typePackage = TypePackage.valueOf(result.getString(3));
 		Universite university = new Universite (result.getInt(1), result.getString(2), typePackage);
 			
-		System.out.println("LOG DB : universite recuperee");
-		
+		message = "LOG DB : universite recuperee";
+	    _journal.addJournal(new MetaJournal(new ConsoleJournal()));
+	    _journal.addJournal(new MetaJournal(new FileJournal()));
+	    _journal.outPut_Msg(message);
+	    
 		connect.close();
 		
 		return university;		

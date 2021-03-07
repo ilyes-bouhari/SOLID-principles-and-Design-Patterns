@@ -8,9 +8,12 @@ import java.sql.Statement;
 public class EtudiantRepository implements IRepository<Etudiant> {
 	
 	private IDBConnection dbConnection;
+	private CompositeJournal _journal;
+	private String message;
 	
 	public EtudiantRepository(IDBConnection dbConnection) {
 		this.dbConnection = dbConnection;
+		this._journal = new CompositeJournal();
 	}
 	
 	@Override
@@ -24,9 +27,18 @@ public class EtudiantRepository implements IRepository<Etudiant> {
 		int result = statement.executeUpdate(sql);
 		
 		if (result == 1){
-			System.out.println("LOG : Ajout dans la BD reussi de l'etudiant  du Matricule" + E.getId());
+			
+			message = "LOG : Ajout dans la BD reussi de l'etudiant du Matricule" + E.getId();
+		    _journal.addJournal(new MetaJournal(new ConsoleJournal()));
+		    _journal.addJournal(new MetaJournal(new FileJournal()));
+		    _journal.outPut_Msg(message);
+			
 		} else if (result == 0) {
-			System.out.println("LOG : Echec de l'ajout dans la BD de l'etudiant  du Matricule" + E.getId());
+			
+			message = "LOG : Echec de l'ajout dans la BD de l'etudiant  du Matricule" + E.getId();
+		    _journal.addJournal(new MetaJournal(new ConsoleJournal()));
+		    _journal.addJournal(new MetaJournal(new FileJournal()));
+		    _journal.outPut_Msg(message);
 		}
 		
 		connect.close();
@@ -43,12 +55,20 @@ public class EtudiantRepository implements IRepository<Etudiant> {
 		ResultSet result = statement.executeQuery(sql);
 		
 		if (result.next()){
-			System.out.println("LOG DB : email existe dans la BD " + email);
+			
+			message = "LOG DB : email existe dans la BD" + email;
+		    _journal.addJournal(new MetaJournal(new ConsoleJournal()));
+		    _journal.addJournal(new MetaJournal(new FileJournal()));
+		    _journal.outPut_Msg(message);
+			
 			connect.close();
 			return true;
 		}
-		
-		System.out.println("LOG DB : email n'existe pas " + email);	
+				
+		message = "LOG DB : email n'existe pas " + email;
+	    _journal.addJournal(new MetaJournal(new ConsoleJournal()));
+	    _journal.addJournal(new MetaJournal(new FileJournal()));
+	    _journal.outPut_Msg(message);
 		
 		connect.close();
 		
@@ -67,12 +87,20 @@ public class EtudiantRepository implements IRepository<Etudiant> {
 		ResultSet result = statement.executeQuery(sql);
 		
 		if (result.next()){
-			System.out.println("LOG DB : etudiant avec ce matricule existe deja dans la BD " + mat);
+			
+			message = "LOG DB : etudiant avec ce matricule existe deja dans la BD  " + mat;
+		    _journal.addJournal(new MetaJournal(new ConsoleJournal()));
+		    _journal.addJournal(new MetaJournal(new FileJournal()));
+		    _journal.outPut_Msg(message);
+			
 			connect.close();
 			return true;
 		}
-		
-		System.out.println("LOG DB : etudiant avec ce matricule n'existe pas " + mat);	
+				
+		message = "LOG DB : etudiant avec ce matricule n'existe pas " + mat;
+	    _journal.addJournal(new MetaJournal(new ConsoleJournal()));
+	    _journal.addJournal(new MetaJournal(new FileJournal()));
+	    _journal.outPut_Msg(message);
 		
 		connect.close();
 		
