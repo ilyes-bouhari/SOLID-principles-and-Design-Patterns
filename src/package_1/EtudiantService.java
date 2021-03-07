@@ -12,7 +12,7 @@ public class EtudiantService {
 		_journal = new CompositeJournal();
 	}
 	
-	boolean inscription (int matricule, String nom, String prenom, String email,String pwd, int id_universite, IRepository<Etudiant> studentRepository, IRepository<Universite> universiteRepository) throws SQLException {
+	boolean inscription (int matricule, String nom, String prenom, String email,String pwd, int id_universite, IRepository<Etudiant> studentRepository, UniversiteRepository universiteRepository) throws SQLException {
 		
 	    Etudiant student = new Etudiant(matricule, nom, prenom, email, pwd, id_universite);
 	    Universite university = universiteRepository.GetById(id_universite);
@@ -22,23 +22,14 @@ public class EtudiantService {
 	    _journal.addJournal(new MetaJournal(new FileJournal()));
 	    _journal.outPut_Msg(message);
 	    
-	    if (email == null || email.length() == 0) {
-	    	return false;
-	    }
+	    CompositeValidator validator = new CompositeValidator();
+	    validator.addValidator(new EtudiantEmailIsValidValidator());
+	    validator.addValidator(new EtudiantMatriculeNonExistenceValidator());
+	    validator.addValidator(new EtudiantEmailNonExistenceValidator());
 	    
-	    if (studentRepository.Exists(matricule)) {
-	        return false;
-	    }
+	    if (! validator.validate(student)) return false;
 	    
-		if (studentRepository.Exists(email)) {
-	        return false;
-	    }
-		
-		if (university.getPack() == TypePackage.Standard) {
-			student.setNbLivreMensuel_Autorise(10);
-	    } else if (university.getPack() == TypePackage.Premium) {
-	    	student.setNbLivreMensuel_Autorise(10*2);
-	    }                           
+		universiteRepository.setNbLivreMensuel_Autorise(student);                                       
 	     
 		studentRepository.add(student);
 		 		

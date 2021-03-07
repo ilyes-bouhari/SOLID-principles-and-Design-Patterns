@@ -1,4 +1,4 @@
-package package_1;
+	package package_1;
 
 public class MainApp {
 
