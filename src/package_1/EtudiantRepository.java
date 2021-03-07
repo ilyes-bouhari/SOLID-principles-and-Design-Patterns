@@ -9,7 +9,7 @@ public class EtudiantRepository {
 	
 	void add(Etudiant E) throws SQLException {
 
-		DBConnection dbConnection = new DBConnection();
+		DBConnection dbConnection = DBConnection.getInstance();
 		Connection connect = dbConnection.getConnection();
 		
 		Statement statement = connect.createStatement();
@@ -29,7 +29,7 @@ public class EtudiantRepository {
 
 	boolean Exists(String email) throws SQLException {
 		
-		DBConnection dbConnection = new DBConnection();
+		DBConnection dbConnection = DBConnection.getInstance();
 		Connection connect = dbConnection.getConnection();
 		
 		Statement statement = connect.createStatement();
@@ -52,7 +52,7 @@ public class EtudiantRepository {
 	
 	boolean Exists(int mat) throws SQLException	{
 		
-		DBConnection dbConnection = new DBConnection();
+		DBConnection dbConnection = DBConnection.getInstance();
 		Connection connect = dbConnection.getConnection();
 		
 		Statement statement = connect.createStatement();

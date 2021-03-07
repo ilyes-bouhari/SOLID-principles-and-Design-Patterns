@@ -10,7 +10,7 @@ public class UniversiteRepository {
 	
 	Universite GetById(int universityId) throws SQLException {
 		
-		DBConnection dbConnection = new DBConnection();
+		DBConnection dbConnection = DBConnection.getInstance();
 		Connection connect = dbConnection.getConnection();
 		
 		Statement statement = connect.createStatement();
