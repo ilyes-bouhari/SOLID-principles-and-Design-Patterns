@@ -6,10 +6,10 @@ import java.sql.SQLException;
 
 import org.junit.jupiter.api.Test;
 
-import database.MySQLConnection;
-import etudiant.EtudiantRepository;
-import etudiant.EtudiantService;
-import universite.UniversiteRepository;
+import com.tp2.database.MySQLConnection;
+import com.tp2.etudiant.EtudiantRepository;
+import com.tp2.etudiant.EtudiantService;
+import com.tp2.universite.UniversiteRepository;
 
 public class DemoTests {
 
@@ -17,7 +17,7 @@ public class DemoTests {
 	public void a_user_can_register_a_student() throws SQLException {
 		EtudiantService studentService = new EtudiantService();
 		
-		boolean reponse = studentService.inscription(1, "Doe", "John", "johndoe@gmail.com", "password", 1, new EtudiantRepository(new MySQLConnection()), new UniversiteRepository(new MySQLConnection()));
+		boolean reponse = studentService.inscription(1, "Doe", "John", "johndoe@gmail.com", "password", 1);
 
 		assertTrue(reponse);
 	}
