@@ -1,5 +1,7 @@
 package etudiant.controlleurs;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import base.IView;
@@ -18,8 +20,18 @@ public class ControleurInscription {
 	}
 	
 	public void initActionListeners() {
-		_view.getBtnCancel().addActionListener(e -> cancel());
-		_view.getBtnSubmit().addActionListener(e -> submit());
+		_view.getBtnCancel().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cancel();
+			}
+		});
+		_view.getBtnSubmit().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				submit();
+			}
+		});
 	}
 	
 	public void show() {
