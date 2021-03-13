@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import org.junit.Test;
 
 import database.MySQLConnection;
-import package_1.EtudiantRepository;
-import package_1.EtudiantService;
-import package_1.UniversiteRepository;
+import etudiant.EtudiantRepository;
+import etudiant.EtudiantService;
+import universite.UniversiteRepository;
 
 public class BaseTests {
 	

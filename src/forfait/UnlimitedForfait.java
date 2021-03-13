@@ -1,6 +1,6 @@
 package forfait;
 
-import package_1.Etudiant;
+import etudiant.Etudiant;
 
 public class UnlimitedForfait extends Forfait {
 
